@@ -7,6 +7,9 @@
 #include "spinlock.h"
 #include "proc.h"
 
+
+#include "sysinfo.h"
+
 uint64
 sys_exit(void)
 {
@@ -94,4 +97,35 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+
+uint64
+sys_trace(void)
+{
+  int n;//zyy: trace mask
+  if(argint(0, &n) < 0)
+    return -1;
+
+  myproc()->mask = n;
+  return 0;
+}
+
+uint64
+sys_sysinfo(void)
+{
+  struct sysinfo temp;
+  temp.freemem = num_free_mem();
+  temp.nproc = num_unused_proc();
+
+  //copy the temp to user space.
+  uint64 addr; //zyy: user pointer to struct sysinfo
+  if(argaddr(0, &addr) < 0)
+    return -1;
+
+  struct proc *p = myproc();
+
+  if(copyout(p->pagetable, addr, (char*)&temp, sizeof(temp)) < 0)
+    return -1;
+  return 0;
 }

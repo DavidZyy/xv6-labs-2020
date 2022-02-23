@@ -8,7 +8,10 @@ main(int argc, char *argv[])
 {
   int i;
   char *nargv[MAXARG];
-
+  /**zyy
+   * take "trace 32 grep hello README" as example
+   * argv[1][0] == 3
+   * */
   if(argc < 3 || (argv[1][0] < '0' || argv[1][0] > '9')){
     fprintf(2, "Usage: %s mask command\n", argv[0]);
     exit(1);
