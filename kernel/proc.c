@@ -706,7 +706,7 @@ num_unused_proc(void)
   for(p = proc; p < &proc[NPROC]; p++)
   {
     acquire(&p->lock);
-    if(p->state == UNUSED)
+    if(p->state != UNUSED)
       num++;
     release(&p->lock);
   }
