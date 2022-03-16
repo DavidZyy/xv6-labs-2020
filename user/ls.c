@@ -55,10 +55,12 @@ ls(char *path)
     p = buf+strlen(buf);
     *p++ = '/';
     while(read(fd, &de, sizeof(de)) == sizeof(de)){
+      // printf("%s\n", de.name);
       if(de.inum == 0)
         continue;
       memmove(p, de.name, DIRSIZ);
       p[DIRSIZ] = 0;
+      // printf("%s\n", buf);
       if(stat(buf, &st) < 0){
         printf("ls: cannot stat %s\n", buf);
         continue;
