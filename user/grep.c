@@ -14,6 +14,17 @@ grep(char *pattern, int fd)
   char *p, *q;
 
   m = 0;
+  /**
+   * @brief read 1024 bytes, then to process lines in the 1023 bytes
+   * if still remains lines in the 1024 bytes, save in the next 
+   * while((n = read(...)))
+   * 
+   * =====================
+   * |             |\0|  |
+   * =====================
+   * ^                ^
+   * buf              p
+   */
   while((n = read(fd, buf+m, sizeof(buf)-m-1)) > 0){
     m += n;
     buf[m] = '\0';
@@ -36,6 +47,7 @@ grep(char *pattern, int fd)
 int
 main(int argc, char *argv[])
 {
+  // printf("greap!\n");
   int fd, i;
   char *pattern;
 

@@ -53,6 +53,7 @@ void find(char *path, char *filename)
     if (!strcmp(fmtname(path), filename))
       // printf("%d\n", strcmp( filename, fmtname(path)));
       printf("%s\n", path);
+      // ;
       // printf("%s\n", fmtname(path));
       // printf("%s\n", filename); 
       // printf("\n");

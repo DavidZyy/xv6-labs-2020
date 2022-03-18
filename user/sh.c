@@ -128,6 +128,12 @@ runcmd(struct cmd *cmd)
     break;
   }
   exit(0);
+  /**
+   * @brief exit(0) here:
+   * ----------------------> (main functin wait)
+   *          \------------> (this process, exit to wake up main function)
+   *              \--------> (fork to run command) 
+   */
 }
 
 int
